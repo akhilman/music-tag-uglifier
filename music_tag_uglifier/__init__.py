@@ -1,11 +1,11 @@
-import tqdm
-import pprint
 import dataclasses
+import pprint
 import re
 from pathlib import Path
-from typing import Iterator, Tuple, List, Iterable
+from typing import Iterable, Iterator, List, Tuple
 
 import mutagen
+import tqdm
 
 SUPPORTED_EXTENSIONS = [".mp3", ".ogg", ".flac"]
 
