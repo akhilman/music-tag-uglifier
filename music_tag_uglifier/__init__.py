@@ -45,7 +45,7 @@ def get_album(audio: mutagen.FileType) -> Album | None:
     return None
 
 
-def get_disc_numter(audio: mutagen.FileType) -> int:
+def get_disc_number(audio: mutagen.FileType) -> int:
     raw_disc_number: List[str] | None = audio.get("discnumber") or None
     disc_number = 1
     if raw_disc_number:
@@ -67,7 +67,7 @@ def find_multi_disk_albums(music_files: Iterable[Path]) -> Iterator[Album]:
 
         last_dir = f.parent
 
-        if get_disc_numter(audio) > 1:
+        if get_disc_number(audio) > 1:
             yield album
 
 
@@ -84,7 +84,7 @@ def normalise(
             new_tags["artist"] = audio["albumartist"]
 
     if get_album(audio) in multi_disc_albums:
-        disk_number = get_disc_numter(audio)
+        disk_number = get_disc_number(audio)
         album_names = []
         for name in audio["album"]:
             if not re.search(r"(?i)\(?\[?(cd|disc)\s*[0-9]+\]?\)?$", name):
