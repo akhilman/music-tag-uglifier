@@ -1,0 +1,14 @@
+[project]
+name = "music-tag-uglifier"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "click>=8.3.1",
+    "mutagen>=1.47.0",
+    "tqdm>=4.67.3",
+]
+
+[project.scripts]
+myapp = "music_tag_uglifier.__main__:main"
