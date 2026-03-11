@@ -24,13 +24,6 @@ def find_music(music_dir: Path) -> Iterator[Path]:
     )
 
 
-def find_tag(tags: dict[str, str], pattern: re.Pattern) -> Tuple[str, str] | None:
-    for key, value in tags.items():
-        if pattern.match(key):
-            return (key, value)
-    return None
-
-
 def get_first[T](values: Iterable[T] | None) -> T | None:
     if not values:
         return None
