@@ -2,7 +2,7 @@ import dataclasses
 import pprint
 import re
 from pathlib import Path
-from typing import Iterable, Iterator, List, Tuple
+from typing import Iterable, Iterator, List
 
 import mutagen
 import tqdm
