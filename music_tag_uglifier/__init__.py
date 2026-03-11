@@ -47,18 +47,15 @@ def get_disc_number(audio: mutagen.FileType) -> int:
 
 
 def find_multi_disk_albums(music_files: Iterable[Path]) -> Iterator[Album]:
-    last_dir = None
+    last_album = None
     for f in music_files:
-        if f.parent == last_dir:
-            continue
-
         audio = mutagen.File(f, easy=True)
-
         album = get_album(audio)
-        if not album:
+
+        if not album or album == last_album:
             continue
 
-        last_dir = f.parent
+        last_album = album
 
         if get_disc_number(audio) > 1:
             yield album
