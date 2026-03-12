@@ -12,8 +12,10 @@ It performs two independent normalization steps on MP3, FLAC, and Ogg Vorbis fil
   For albums identified as multi-disc (files with `discnumber` > 1), if the album title does **not** already contain phrases like “CDx”, “Disc x”, “[x]”, “(x)”, etc., the script appends `CD<discnumber>` to the album title.  
   This prevents tracks from different discs being grouped incorrectly or displayed without disc separation on devices with limited multi-disc support.
 
+For now it supports flac, mp3 and ogg. Open an issue if you need something else.
+
 ## Installation
-Using [uv](https://docs.astral.sh/uv/)
+Using [uv](https://docs.astral.sh/uv/) package manager:
 ```
 uv tool install https://github.com/akhilman/music-tag-uglifier.git
 ```
