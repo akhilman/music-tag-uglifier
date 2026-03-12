@@ -4,7 +4,7 @@ import click
 import music_tag_uglifier
 
 
-@click.command(short_help="Music Tag Normalizer for Portable DAPs.")
+@click.command(help="Music Tag Normalizer for Portable DAPs.")
 @click.option(
     "--set-artist",
     "-a",
