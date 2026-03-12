@@ -27,7 +27,7 @@ import music_tag_uglifier
     type=click.Path(
         exists=True, file_okay=False, dir_okay=True, writable=True, path_type=Path
     ),
-    default="./",
+    nargs=1,
 )
 def main(music_dir: Path, set_artist: bool, disc_number: bool, dry_run: bool):
     music_tag_uglifier.uglify(
