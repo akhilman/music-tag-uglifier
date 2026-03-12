@@ -11,4 +11,4 @@ dependencies = [
 ]
 
 [project.scripts]
-myapp = "music_tag_uglifier.__main__:main"
+music-tag-uglifier = "music_tag_uglifier.__main__:main"
