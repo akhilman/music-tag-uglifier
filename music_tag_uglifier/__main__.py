@@ -4,23 +4,23 @@ import click
 import music_tag_uglifier
 
 
-@click.command(short_help="Music Tag Normalizer for Portable DAPs")
+@click.command(short_help="Music Tag Normalizer for Portable DAPs.")
 @click.option(
     "--set-artist",
     "-a",
     type=click.BOOL,
     is_flag=True,
-    help="Copy albumartist tag to artist",
+    help="Copy albumartist tag to artist.",
 )
 @click.option(
     "--disc-number",
     "-d",
     type=click.BOOL,
     is_flag=True,
-    help="Add disc number to album name",
+    help="Add disc number to album name.",
 )
 @click.option(
-    "--dry-run", "-n", type=click.BOOL, is_flag=True, help="Do not update tags"
+    "--dry-run", "-n", type=click.BOOL, is_flag=True, help="Do not update tags."
 )
 @click.argument(
     "music_dir",
