@@ -21,4 +21,7 @@ uv tool install https://github.com/akhilman/music-tag-uglifier.git
 ```
 
 ## Usage
+
+Run `music-tag-uglifier -ad /music/directory` to change all tags in /music/directory recursively.
+
 Run `music-tag-uglifier --help` to get up to date list of options.
