@@ -14,14 +14,48 @@ It performs two independent normalization steps on MP3, FLAC, and Ogg Vorbis fil
 
 For now it supports flac, mp3 and ogg. Open an issue if you need something else.
 
-## Installation
-Using [uv](https://docs.astral.sh/uv/) package manager:
-```
+## Installation and usage
+
+### Using [uv](https://docs.astral.sh/uv/) package manager
+
+```sh
 uv tool install https://github.com/akhilman/music-tag-uglifier.git
 ```
 
-## Usage
+Run `uv tool run music-tag-uglifier -ad /music/directory` to change all tags in /music/directory recursively.
 
-Run `music-tag-uglifier -ad /music/directory` to change all tags in /music/directory recursively.
+Run `uv tool run music-tag-uglifier --help` to get up to date list of options.
 
-Run `music-tag-uglifier --help` to get up to date list of options.
+### Using git, venv and pip
+
+Clone this repository and enter to the clone:
+
+```sh
+git clone https://github.com/akhilman/music-tag-uglifier.git
+cd music-tag-uglifier/
+```
+
+Create virtual environment and activate it:
+
+```sh
+python3 -m venv .venv
+.venv/bin/activate
+```
+
+Install package to virtual environment:
+
+```sh
+pip install --editable ./
+```
+
+Run the script from virtual environment:
+
+```sh
+music-tag-uglifier -ad /music/directory
+```
+
+or
+
+```sh
+python3 -m music-tag-uglifier -ad /music/directory
+```
