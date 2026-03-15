@@ -39,7 +39,7 @@ Create virtual environment and activate it:
 
 ```sh
 python3 -m venv .venv
-.venv/bin/activate
+. .venv/bin/activate
 ```
 
 Install package to virtual environment:
