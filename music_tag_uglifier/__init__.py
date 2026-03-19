@@ -118,6 +118,10 @@ def uglify(
     album_disk_number: bool = False,
 ):
 
+    if not set_artist and not album_disk_number:
+        print("Nothing to do")
+        return
+
     music_files = list(find_music(music_dir))
 
     multi_disk_albums: set[Album] = set()
