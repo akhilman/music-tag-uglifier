@@ -16,6 +16,12 @@ class Album:
     album: str
 
 
+@dataclasses.dataclass(frozen=True)
+class AlbumNameAndDiscNumber:
+    name: str
+    disc: int | None
+
+
 def find_music(music_dir: Path) -> Iterator[Path]:
     return (
         p
@@ -30,11 +36,23 @@ def get_first[T](values: Iterable[T] | None) -> T | None:
     return next(iter(values), None)
 
 
+def separate_album_name_and_disc_number(album_name: str) -> AlbumNameAndDiscNumber:
+    match = re.search(
+        r"(?i)(.*?)(?:(?:\s|\s-\s|\s?:\s)\(?\[?(?:cd|disc):?\s*([0-9]+)\]?\)?)?$",
+        album_name,
+    )
+    assert match
+    name, disc = match.groups()
+    if disc is not None:
+        disc = int(disc)
+    return AlbumNameAndDiscNumber(name=name, disc=disc)
+
+
 def get_album(audio: mutagen.FileType) -> Album | None:
     artist = get_first(audio.get("albumartist")) or get_first(audio.get("artist"))
     album = get_first(audio.get("album"))
     if artist and album:
-        return Album(artist, album)
+        return Album(artist, separate_album_name_and_disc_number(album).name)
     return None
 
 
@@ -77,7 +95,7 @@ def normalise(
         disk_number = get_disc_number(audio)
         album_names = []
         for name in audio["album"]:
-            if not re.search(r"(?i)\(?\[?(cd|disc)\s*[0-9]+\]?\)?$", name):
+            if separate_album_name_and_disc_number(name).disc is None:
                 name = f"{name} CD{disk_number}"
             album_names.append(name)
         if audio["album"] != album_names:
