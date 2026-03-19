@@ -87,9 +87,9 @@ def normalise(
 ):
     audio = mutagen.File(music_file, easy=True)
     new_tags = {}
-    if set_artist and "albumartist" in audio:
-        if audio.get("artist") != audio["albumartist"]:
-            new_tags["artist"] = audio["albumartist"]
+    if set_artist and audio.get("albumartist"):
+        if audio.get("artist") != audio.get("albumartist"):
+            new_tags["artist"] = audio.get("albumartist")
 
     if get_album(audio) in multi_disc_albums:
         disk_number = get_disc_number(audio)
