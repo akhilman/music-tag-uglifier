@@ -6,7 +6,7 @@ import music_tag_uglifier
 
 @click.command(help="Music Tag Normalizer for Portable DAPs.")
 @click.option(
-    "--set-artist",
+    "--album-artist",
     "-a",
     type=click.BOOL,
     is_flag=True,
@@ -30,11 +30,19 @@ import music_tag_uglifier
     nargs=1,
 )
 @click.version_option()
-def main(music_dir: Path, set_artist: bool, disc_number: bool, dry_run: bool):
+def main(
+    music_dir: Path,
+    dry_run: bool,
+    album_artist: bool,
+    disc_number: bool,
+):
+    params = music_tag_uglifier.Params()
+    params.album_artist_to_artist = album_artist
+    params.disc_to_album = disc_number
+
     music_tag_uglifier.uglify(
         music_dir,
-        set_artist=set_artist,
-        album_disk_number=disc_number,
+        params,
         dry_run=dry_run,
     )
 

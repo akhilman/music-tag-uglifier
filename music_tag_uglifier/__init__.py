@@ -10,6 +10,15 @@ import tqdm
 SUPPORTED_EXTENSIONS = [".mp3", ".ogg", ".flac"]
 
 
+@dataclasses.dataclass
+class Params:
+    album_artist_to_artist: bool = False
+    disc_to_album: bool = False
+
+    def any(self):
+        return self.album_artist_to_artist or self.disc_to_album
+
+
 @dataclasses.dataclass(frozen=True)
 class Album:
     artist: str
@@ -81,17 +90,17 @@ def find_multi_disk_albums(music_files: Iterable[Path]) -> Iterator[Album]:
 
 def normalise(
     music_file: Path,
+    params: Params,
     multi_disc_albums: set[Album] = set(),
     dry_run: bool = False,
-    set_artist: bool = False,
 ):
     audio = mutagen.File(music_file, easy=True)
     new_tags = {}
-    if set_artist and audio.get("albumartist"):
+    if params.album_artist_to_artist and audio.get("albumartist"):
         if audio.get("artist") != audio.get("albumartist"):
             new_tags["artist"] = audio.get("albumartist")
 
-    if get_album(audio) in multi_disc_albums:
+    if params.disc_to_album and get_album(audio) in multi_disc_albums:
         disk_number = get_disc_number(audio)
         album_names = []
         for name in audio["album"]:
@@ -113,19 +122,18 @@ def normalise(
 
 def uglify(
     music_dir: Path,
+    params: Params,
     dry_run: bool = False,
-    set_artist: bool = False,
-    album_disk_number: bool = False,
 ):
 
-    if not set_artist and not album_disk_number:
+    if not params.any():
         print("Nothing to do")
         return
 
     music_files = list(find_music(music_dir))
 
     multi_disk_albums: set[Album] = set()
-    if album_disk_number:
+    if params.disc_to_album:
         multi_disk_albums = set(
             find_multi_disk_albums(
                 tqdm.tqdm(music_files, desc="Searching multi-disc albums")
@@ -135,7 +143,7 @@ def uglify(
     for f in tqdm.tqdm(music_files, desc="Updating tags"):
         normalise(
             f,
+            params,
             multi_disc_albums=multi_disk_albums,
             dry_run=dry_run,
-            set_artist=set_artist,
         )
